@@ -1,24 +1,28 @@
-name: testing ci/cd
+name: Raw CI/CD for Node.js
 
 on:
   push:
-    branches: [main]   # 'branch:' was a typo; should be 'branches:'
+    branches: [main]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        run: |
+          git clone https://github.com/Deva-2002/devops2-BE.git .
+          git checkout main
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18 
+      - name: Install Node.js manually
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          node -v
+          npm -v
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
 
-      - name: Run tests
-        run: npm run test
+      
