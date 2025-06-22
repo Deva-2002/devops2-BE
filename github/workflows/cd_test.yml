@@ -1,0 +1,15 @@
+name: testing ci/cd
+
+on:
+  push:
+    branch:[main]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
